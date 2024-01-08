@@ -56,7 +56,7 @@ public class ZOOM extends LinearOpMode {
         Backright = hardwareMap.get(DcMotor.class, "RB");
         Backleft = hardwareMap.get(DcMotor.class, "LB");
         Frontleft = hardwareMap.get(DcMotor.class, "LF");
-        LinAct = hardwareMap.get(DcMotor.class, "Act");
+        /**LinAct = hardwareMap.get(DcMotor.class, "Act");
         ClawL = hardwareMap.get(Servo.class, "CL");
         ClawR = hardwareMap.get(Servo.class, "CR");
         ArmextendL = hardwareMap.get(DcMotor.class, "L");
@@ -64,7 +64,7 @@ public class ZOOM extends LinearOpMode {
         Wrist = hardwareMap.get(Servo.class, "W");
         LinAngle = hardwareMap.get(Servo.class, "LA");
         ArmAngle = hardwareMap.get(DcMotor.class, "AA");
-        Plane = hardwareMap.get(Servo.class, "P");
+        Plane = hardwareMap.get(Servo.class, "P");*/
 
         // sets the right 2 motors to reverse
         /*Frontright.setDirection(DcMotor.Direction.REVERSE);
@@ -74,7 +74,7 @@ public class ZOOM extends LinearOpMode {
         Backright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Frontleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Backleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+/**
         ArmextendL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ArmextendL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         ArmextendL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -90,7 +90,7 @@ public class ZOOM extends LinearOpMode {
         LinAct.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         LinAct.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LinAct.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+*/
         //calls from samplemecanumdrive
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         //sets motors to run without encoders
@@ -118,7 +118,7 @@ public class ZOOM extends LinearOpMode {
             );
 
             drive.update();
-
+/**
             // Makes variables Power1 and Power2 to their respective joystick
             double Power1 = gamepad2.right_stick_y;
             double Power2 = gamepad2.left_stick_y;
@@ -161,11 +161,11 @@ public class ZOOM extends LinearOpMode {
             if (gamepad2.right_trigger > .1){
                 Claw.setPosition(0);
             }*/
-
+/**
             if (gamepad2.a) {
                 Plane.setPosition(0);
             }
-
+*/
             //adds data to the driver hub that tells you the coordinates of where the robot is on the field
             Pose2d poseEstimate = drive.getPoseEstimate();
             telemetry.addData("a", poseEstimate.getX());

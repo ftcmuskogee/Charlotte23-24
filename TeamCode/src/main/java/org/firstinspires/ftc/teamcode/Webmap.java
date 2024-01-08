@@ -16,6 +16,7 @@ public class Webmap {
     public DcMotor Backright = null;
     public DcMotor Backleft = null;
     public DcMotor Frontleft = null;
+    /**
     public DcMotor LinAct = null;
     public Servo ClawL = null;
     public Servo ClawR = null;
@@ -30,7 +31,7 @@ public class Webmap {
     public DcMotor ArmextendR = null;
 
     //plane launch
-    public Servo Plane = null;
+    public Servo Plane = null;*/
     // sets hardware map to null and names it
     HardwareMap Webmap = null;
     // creates runtime variable
@@ -44,7 +45,7 @@ public class Webmap {
         Backright = hmap.get(DcMotor.class, "RB");
         Backleft = hmap.get(DcMotor.class, "LB");
         Frontleft = hmap.get(DcMotor.class, "LF");
-        LinAct = hmap.get(DcMotor.class, "Act");
+        /**LinAct = hmap.get(DcMotor.class, "Act");
         ClawL = hmap.get(Servo.class, "CL");
         ClawR = hmap.get(Servo.class, "CR");
         ArmextendL = hmap.get(DcMotor.class, "L");
@@ -58,13 +59,13 @@ public class Webmap {
         //Frontright.setDirection(DcMotor.Direction.REVERSE);
         //Backright.setDirection(DcMotor.Direction.REVERSE);
 
-
+*/
         // sets the lifts zeropowerbehavior to brake
         Frontright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Backright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Frontleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Backleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+/**
         ArmextendL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ArmextendL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         ArmextendL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -81,7 +82,7 @@ public class Webmap {
         LinAct.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LinAct.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-
+*/
     }
 
     // function for driving forward
@@ -175,7 +176,7 @@ public class Webmap {
         Backleft.setPower(0);
         Backright.setPower(0);
     }
-
+/**
     public void Aoff() {
 
         ArmextendR.setPower(0);
@@ -231,6 +232,8 @@ public class Webmap {
         while (time > runtime.milliseconds()) {
             ArmextendR.setPower(-1);
             ArmextendL.setPower(-1);
+
         }
     }
+ */
 }
