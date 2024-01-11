@@ -30,6 +30,7 @@ public class ZOOM extends LinearOpMode {
 
     //plane launch
     public Servo Plane = null;
+    public Servo PlaneSecure = null;
     // sets hardware map to null and names it
 
 
@@ -52,7 +53,9 @@ public class ZOOM extends LinearOpMode {
         Wrist = hardwareMap.get(Servo.class, "W");
         LinAngle = hardwareMap.get(Servo.class, "LA");
         ArmAngle = hardwareMap.get(DcMotor.class, "AA");
-        Plane = hardwareMap.get(Servo.class, "P");*/
+        Plane = hardwareMap.get(Servo.class, "P");
+         PlaneSecure = hardwareMap.get(Servo.class, "PS");
+         */
 
         // sets the right 2 motors to reverse
         Frontleft.setDirection(DcMotor.Direction.REVERSE);
@@ -160,6 +163,9 @@ public class ZOOM extends LinearOpMode {
             if (gamepad2.a) {
                 Plane.setPosition(0);
             }
+ if (gamepad2.b) {
+ PlaneSecure.setPosition(0);
+ }
 */
             //adds data to the driver hub that tells you the coordinates of where the robot is on the field
             Pose2d poseEstimate = drive.getPoseEstimate();

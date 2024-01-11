@@ -16,7 +16,6 @@ public class Webmap {
     public DcMotor Backright = null;
     public DcMotor Backleft = null;
     public DcMotor Frontleft = null;
-    /**
     public DcMotor LinAct = null;
     public Servo ClawL = null;
     public Servo ClawR = null;
@@ -30,7 +29,9 @@ public class Webmap {
     public DcMotor Armextend = null;
 
     //plane launch
-    public Servo Plane = null;*/
+    public Servo Plane = null;
+     public Servo PlaneSecure = null;
+
     // sets hardware map to null and names it
     HardwareMap Webmap = null;
     // creates runtime variable
@@ -52,6 +53,7 @@ public class Webmap {
         LinAngle = hmap.get(Servo.class, "LA");
         ArmAngle = hmap.get(DcMotor.class, "AA");
         Plane = hmap.get(Servo.class, "P");
+         PlaneSecure = hardwareMap.get(Servo.class, "PS");
 **/
 
          Frontleft.setDirection(DcMotor.Direction.REVERSE);
