@@ -33,16 +33,6 @@ public class ZOOM extends LinearOpMode {
     public Servo Plane = null;
     // sets hardware map to null and names it
 
-    //sets booleans to false
-    private final boolean isPressed = false;
-    public boolean buttonPressed = false;
-    //sets variables to 0
-    public double lastTick = 0;
-    public double lastTime = 0;
-    public double currentTick = 0;
-    public double currentTime = 0;
-    public double targetShooterRPM = 0;
-
 
     //calls hardware map
     Webmap robot = new Webmap();
@@ -67,8 +57,8 @@ public class ZOOM extends LinearOpMode {
         Plane = hardwareMap.get(Servo.class, "P");*/
 
         // sets the right 2 motors to reverse
-        /*Frontright.setDirection(DcMotor.Direction.REVERSE);
-        Backright.setDirection(DcMotor.Direction.REVERSE);*/
+        Frontleft.setDirection(DcMotor.Direction.REVERSE);
+        Backleft.setDirection(DcMotor.Direction.REVERSE);
 
         Frontright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Backright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -111,8 +101,8 @@ public class ZOOM extends LinearOpMode {
             //was y: x
             drive.setWeightedDrivePower(
                     new Pose2d(
+                            -gamepad1.left_stick_y * 1,
                             -gamepad1.left_stick_x * 1,
-                            gamepad1.left_stick_y * 1,
                             -gamepad1.right_stick_x * 0.8
                     )
             );
