@@ -26,8 +26,7 @@ public class ZOOM extends LinearOpMode {
     public Servo LinAngle = null;
     // arm angle
     public DcMotor ArmAngle = null;
-    public DcMotor ArmextendL = null;
-    public DcMotor ArmextendR = null;
+    public DcMotor Armextend = null;
 
     //plane launch
     public Servo Plane = null;
@@ -49,8 +48,7 @@ public class ZOOM extends LinearOpMode {
         /**LinAct = hardwareMap.get(DcMotor.class, "Act");
         ClawL = hardwareMap.get(Servo.class, "CL");
         ClawR = hardwareMap.get(Servo.class, "CR");
-        ArmextendL = hardwareMap.get(DcMotor.class, "L");
-        ArmextendR = hardwareMap.get(DcMotor.class, "R");
+        Armextend = hardwareMap.get(DcMotor.class, "ARM");
         Wrist = hardwareMap.get(Servo.class, "W");
         LinAngle = hardwareMap.get(Servo.class, "LA");
         ArmAngle = hardwareMap.get(DcMotor.class, "AA");
@@ -65,13 +63,10 @@ public class ZOOM extends LinearOpMode {
         Frontleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Backleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 /**
-        ArmextendL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        ArmextendL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        ArmextendL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        ArmextendR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        ArmextendR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        ArmextendR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        Armextend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Armextend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Armextend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         ArmAngle.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ArmAngle.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -108,16 +103,9 @@ public class ZOOM extends LinearOpMode {
             );
 
             drive.update();
-/**
-            // Makes variables Power1 and Power2 to their respective joystick
-            double Power1 = gamepad2.right_stick_y;
-            double Power2 = gamepad2.left_stick_y;
-            speed = -.2;
-            // sets the power for the lifts
-            ArmextendL.setPower(Power1 * speed);
-            ArmextendR.setPower(Power1 * speed);
-            ArmAngle.setPower(Power2 * speed);
 
+            //drive controller
+            /**
             //down
             if (gamepad1.right_bumper) {
                 LinAct.setPower(-.2);
@@ -132,6 +120,19 @@ public class ZOOM extends LinearOpMode {
             if (gamepad1.a) {
                 LinAngle.setPosition(0);
             }
+            **/
+            //arm controller
+
+/**
+            // Makes variables Power1 and Power2 to their respective joystick
+            double Power1 = gamepad2.right_stick_y;
+            double Power2 = gamepad2.left_stick_y;
+            speed = -.2;
+            // sets the power for the lifts
+            Armextend.setPower(Power1 * speed);
+            ArmAngle.setPower(Power2 * speed);
+
+
             //up idk
             if (gamepad2.right_bumper){
                 Wrist.setPosition(.65);
@@ -146,10 +147,14 @@ public class ZOOM extends LinearOpMode {
             /**SERVO NUMBERS NEED TO BE OPPOSITE**/
             /*
             if (gamepad2.left_trigger >0.1) {
-                Claw.setPosition(.2);
+                ClawL.setPosition(.2);
             }
             if (gamepad2.right_trigger > .1){
-                Claw.setPosition(0);
+                ClawR.setPosition(-.2);
+            }
+            else{
+                ClawL.setPosition(0);
+                ClawR.setPosition(0);
             }*/
 /**
             if (gamepad2.a) {

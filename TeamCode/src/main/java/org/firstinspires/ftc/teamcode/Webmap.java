@@ -27,8 +27,7 @@ public class Webmap {
     public Servo LinAngle = null;
     // arm angle
     public DcMotor ArmAngle = null;
-    public DcMotor ArmextendL = null;
-    public DcMotor ArmextendR = null;
+    public DcMotor Armextend = null;
 
     //plane launch
     public Servo Plane = null;*/
@@ -48,31 +47,26 @@ public class Webmap {
         /**LinAct = hmap.get(DcMotor.class, "Act");
         ClawL = hmap.get(Servo.class, "CL");
         ClawR = hmap.get(Servo.class, "CR");
-        ArmextendL = hmap.get(DcMotor.class, "L");
-        ArmextendR = hmap.get(DcMotor.class, "R");
+        Armextend = hmap.get(DcMotor.class, "R");
         Wrist = hmap.get(Servo.class, "W");
         LinAngle = hmap.get(Servo.class, "LA");
         ArmAngle = hmap.get(DcMotor.class, "AA");
         Plane = hmap.get(Servo.class, "P");
+**/
+
+         Frontleft.setDirection(DcMotor.Direction.REVERSE);
+         Backleft.setDirection(DcMotor.Direction.REVERSE);
 
 
-        //Frontright.setDirection(DcMotor.Direction.REVERSE);
-        //Backright.setDirection(DcMotor.Direction.REVERSE);
-
-*/
         // sets the lifts zeropowerbehavior to brake
         Frontright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Backright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Frontleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Backleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 /**
-        ArmextendL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        ArmextendL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        ArmextendL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        ArmextendR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        ArmextendR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        ArmextendR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        Armextend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Armextend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Armextend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         ArmAngle.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ArmAngle.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
