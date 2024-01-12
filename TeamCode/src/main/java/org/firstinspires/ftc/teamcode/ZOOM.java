@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
@@ -23,7 +24,7 @@ public class ZOOM extends LinearOpMode {
     public Servo Wrist = null;
     // linear actuator angle change
     //may need changing
-    public Servo LinAngle = null;
+    public CRServo LinAngle = null;
     // arm angle
     public DcMotor ArmAngle = null;
     public DcMotor Armextend = null;
@@ -46,14 +47,14 @@ public class ZOOM extends LinearOpMode {
         Backright = hardwareMap.get(DcMotor.class, "RB");
         Backleft = hardwareMap.get(DcMotor.class, "LB");
         Frontleft = hardwareMap.get(DcMotor.class, "LF");
-        /**LinAct = hardwareMap.get(DcMotor.class, "Act");
+        LinAct = hardwareMap.get(DcMotor.class, "ACT");
         ClawL = hardwareMap.get(Servo.class, "CL");
         ClawR = hardwareMap.get(Servo.class, "CR");
         Armextend = hardwareMap.get(DcMotor.class, "ARM");
         Wrist = hardwareMap.get(Servo.class, "W");
-        LinAngle = hardwareMap.get(Servo.class, "LA");
+        LinAngle = hardwareMap.get(CRServo.class, "LA");
         ArmAngle = hardwareMap.get(DcMotor.class, "AA");
-        Plane = hardwareMap.get(Servo.class, "P");
+        /**Plane = hardwareMap.get(Servo.class, "P");
          PlaneSecure = hardwareMap.get(Servo.class, "PS");
          */
 
@@ -65,7 +66,6 @@ public class ZOOM extends LinearOpMode {
         Backright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Frontleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Backleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-/**
 
         Armextend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         Armextend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -78,7 +78,7 @@ public class ZOOM extends LinearOpMode {
         LinAct.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         LinAct.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LinAct.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-*/
+
         //calls from samplemecanumdrive
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         //sets motors to run without encoders
@@ -108,7 +108,7 @@ public class ZOOM extends LinearOpMode {
             drive.update();
 
             //drive controller
-            /**
+
             //down
             if (gamepad1.right_bumper) {
                 LinAct.setPower(-.2);
@@ -120,45 +120,57 @@ public class ZOOM extends LinearOpMode {
                 LinAct.setPower(0);
             }
 //turn servo not positiion
-            if (gamepad1.a) {
-                LinAngle.setPosition(0);
+            if (gamepad1.y) {
+                LinAngle.setPower(-10);
+                sleep(2000);
+                LinAngle.setPower(0);
             }
-            **/
+            if (gamepad1.x) {
+                LinAngle.setPower(10);
+                sleep(2000);
+                LinAngle.setPower(0);
+            }
+
+            else
+            {
+                LinAngle.setPower(0);
+            }
+
+
             //arm controller
 
-/**
+
             // Makes variables Power1 and Power2 to their respective joystick
-            double Power1 = gamepad2.right_stick_y;
+            double Power1 = -gamepad2.right_stick_y;
             double Power2 = gamepad2.left_stick_y;
             speed = -.2;
             // sets the power for the lifts
             Armextend.setPower(Power1 * speed);
             ArmAngle.setPower(Power2 * speed);
 
-
+//5 turn so change
             //up idk
             if (gamepad2.right_bumper){
                 Wrist.setPosition(.65);
             }
-            // down idk
+            // backwards scoring
             if (gamepad2.left_bumper){
-                Wrist.setPosition(.8);
+                Wrist.setPosition(.75);
             }
-            //open
-            //was .1
 
             /**SERVO NUMBERS NEED TO BE OPPOSITE**/
-            /*
-            if (gamepad2.left_trigger >0.1) {
-                ClawL.setPosition(.2);
+
+            if (gamepad2.left_trigger > 0.1) {
+                ClawL.setPosition(.5);
             }
-            if (gamepad2.right_trigger > .1){
-                ClawR.setPosition(-.2);
+            if (gamepad2.right_trigger > 0.1){
+                ClawR.setPosition(0);
             }
+
             else{
                 ClawL.setPosition(0);
-                ClawR.setPosition(0);
-            }*/
+                ClawR.setPosition(.5);
+            }
 /**
             if (gamepad2.a) {
                 Plane.setPosition(0);

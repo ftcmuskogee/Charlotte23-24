@@ -252,6 +252,7 @@ public class BlueBack extends LinearOpMode {
                 if (tagOfInterest.pose.x <= 20) {
                     robot.Forward(1);
                 }
+                /*
                 else if (tagOfInterest.pose.x >= 20 && tagOfInterest.pose.x <= 50) {
                     // do something else
                 }

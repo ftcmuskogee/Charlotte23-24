@@ -5,7 +5,9 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
@@ -23,14 +25,14 @@ public class Webmap {
     public Servo Wrist = null;
     // linear actuator angle change
     //may need changing
-    public Servo LinAngle = null;
+    public CRServo LinAngle = null;
     // arm angle
     public DcMotor ArmAngle = null;
     public DcMotor Armextend = null;
 
     //plane launch
     public Servo Plane = null;
-     public Servo PlaneSecure = null;
+    public Servo PlaneSecure = null;
 
     // sets hardware map to null and names it
     HardwareMap Webmap = null;
@@ -45,19 +47,19 @@ public class Webmap {
         Backright = hmap.get(DcMotor.class, "RB");
         Backleft = hmap.get(DcMotor.class, "LB");
         Frontleft = hmap.get(DcMotor.class, "LF");
-        /**LinAct = hmap.get(DcMotor.class, "Act");
+        LinAct = hmap.get(DcMotor.class, "ACT ");
         ClawL = hmap.get(Servo.class, "CL");
         ClawR = hmap.get(Servo.class, "CR");
-        Armextend = hmap.get(DcMotor.class, "R");
+        Armextend = hmap.get(DcMotor.class, "ARM");
         Wrist = hmap.get(Servo.class, "W");
-        LinAngle = hmap.get(Servo.class, "LA");
+        LinAngle = hmap.get(CRServo.class, "LA");
         ArmAngle = hmap.get(DcMotor.class, "AA");
-        Plane = hmap.get(Servo.class, "P");
+        /**Plane = hmap.get(Servo.class, "P");
          PlaneSecure = hardwareMap.get(Servo.class, "PS");
-**/
+         **/
 
-         Frontleft.setDirection(DcMotor.Direction.REVERSE);
-         Backleft.setDirection(DcMotor.Direction.REVERSE);
+        Frontleft.setDirection(DcMotor.Direction.REVERSE);
+        Backleft.setDirection(DcMotor.Direction.REVERSE);
 
 
         // sets the lifts zeropowerbehavior to brake
@@ -65,7 +67,7 @@ public class Webmap {
         Backright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Frontleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Backleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-/**
+
         Armextend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         Armextend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Armextend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -78,7 +80,7 @@ public class Webmap {
         LinAct.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LinAct.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-*/
+
     }
 
     // function for driving forward
@@ -172,11 +174,9 @@ public class Webmap {
         Backleft.setPower(0);
         Backright.setPower(0);
     }
-/**
-    public void Aoff() {
 
-        ArmextendR.setPower(0);
-        ArmextendL.setPower(0);
+    public void Aoff() {
+        Armextend.setPower(0);
         ArmAngle.setPower(0);
     }
 
@@ -207,29 +207,39 @@ public class Webmap {
     }
 
     public void LA(double position) {
-        LinAngle.setPosition(position);
+        LinAngle.setPower(position);
     }
 
     //function for moving arm 1 into bot
     //runs arm 1 motor in at 100% power
-    public void AD(double seconds) {
+    public void IN(double seconds) {
         double time = (seconds * 1000) + runtime.milliseconds();
         while (time > runtime.milliseconds()) {
-            ArmextendR.setPower(1);
-            ArmextendL.setPower(1);
+            Armextend.setPower(.2);
         }
 
     }
 
     //function for moving arm 1 out from bot
     // runs arm 1 motor out at 100% power
-    public void AU(double seconds) {
+    public void OUT(double seconds) {
         double time = (seconds * 1000) + runtime.milliseconds();
         while (time > runtime.milliseconds()) {
-            ArmextendR.setPower(-1);
-            ArmextendL.setPower(-1);
-
+            Armextend.setPower(.2);
         }
     }
- */
+
+    public void UP(double seconds) {
+        double time = (seconds * 1000) + runtime.milliseconds();
+        while (time > runtime.milliseconds()) {
+            ArmAngle.setPower(.2);
+        }
+    }
+
+    public void DOWN(double seconds) {
+        double time = (seconds * 1000) + runtime.milliseconds();
+        while (time > runtime.milliseconds()) {
+            ArmAngle.setPower(-.2);
+        }
+    }
 }
