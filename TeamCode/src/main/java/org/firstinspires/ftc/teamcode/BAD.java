@@ -48,8 +48,8 @@ import java.util.ArrayList;
  * and then snapshot that value for later use when the START
  * command is issued. The pipeline is re-used from SkystoneDeterminationExample
  */
-@Autonomous(name = "BlueBackBoard", group = "robot")
-public class BlueBack extends LinearOpMode {
+@Autonomous(name = "NO", group = "robot")
+public class BAD extends LinearOpMode {
     OpenCvWebcam webcam;
     OpenCvCamera camera;
     ApriltagPipeline aprilTagPipeline;
@@ -77,8 +77,7 @@ public class BlueBack extends LinearOpMode {
         webcam.setPipeline(pipeline);
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         aprilTagPipeline = new ApriltagPipeline(tagsize, fx, fy, cx, cy);
-
-        camera.setPipeline(aprilTagPipeline);
+        //camera.setPipeline(aprilTagPipeline);
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
@@ -150,22 +149,22 @@ public class BlueBack extends LinearOpMode {
                 }
 
                 else {
-                    telemetry.addLine("Don't see tag of interest :(");
+                    //telemetry.addLine("Don't see tag of interest :(");
                     if (tagOfInterest == null) {
-                        telemetry.addLine("(The tag has never been seen)");
+                        //telemetry.addLine("(The tag has never been seen)");
                     } else {
-                        telemetry.addLine("\nBut we HAVE seen the tag before; last seen at:");
+                      //  telemetry.addLine("\nBut we HAVE seen the tag before; last seen at:");
                         tagToTelemetry(tagOfInterest);
                     }
                 }
 
             } else {
-                telemetry.addLine("Don't see tag of interest :(");
+               // telemetry.addLine("Don't see tag of interest :(");
 
                 if (tagOfInterest == null) {
-                    telemetry.addLine("(The tag has never been seen)");
+                   // telemetry.addLine("(The tag has never been seen)");
                 } else {
-                    telemetry.addLine("\nBut we HAVE seen the tag before; last seen at:");
+                   // telemetry.addLine("\nBut we HAVE seen the tag before; last seen at:");
                     tagToTelemetry(tagOfInterest);
                 }
 
@@ -238,17 +237,8 @@ public class BlueBack extends LinearOpMode {
 
         switch (snapshotAnalysis) {
             case LEFT: {
-/*
                 telemetry.addLine("left");
-                robot.C(0);
-                sleep(500);
-                robot.W(.65);
-                sleep(500);
-                drive.followTrajectorySequence(L);
-                sleep(500);
-                robot.C(0.2);
-                sleep(500);
-                drive.followTrajectorySequence(L2);
+                /*
                 if (tagOfInterest.pose.x <= 20) {
                     robot.Forward(1);
                 }
@@ -265,35 +255,24 @@ public class BlueBack extends LinearOpMode {
             }
 
             case RIGHT: {
-                /*
-            }
                 telemetry.addLine("right");
-                robot.C(0);
-                sleep(500);
-                robot.W(.65);
-                sleep(500);
-                drive.followTrajectorySequence(R);
-                sleep(500);
-                robot.C(0.2);
-                drive.followTrajectorySequence(R2);
-                break;
-                */
 
             }
 
             case CENTER: {
-                /*
+
                 telemetry.addLine("mid");
-                robot.C(0);
-                sleep(500);
-                robot.W(.65);
-                sleep(500);
-                drive.followTrajectorySequence(M);
-                sleep(500);
-                robot.C(0.2);
-                drive.followTrajectorySequence(M2);
-                break;
-                */
+                //close claws
+                robot.CL(0);
+                robot.CR(.5);
+                //wrist down
+                //forward
+                //open left claw
+                //back up
+                //strafe left
+                //go forward drop yellow
+                //yay
+
             }
         }
     }

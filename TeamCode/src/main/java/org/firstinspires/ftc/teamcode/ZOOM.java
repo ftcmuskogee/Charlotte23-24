@@ -149,13 +149,15 @@ public class ZOOM extends LinearOpMode {
             ArmAngle.setPower(Power2 * speed);
 
 //5 turn so change
-            //up idk
+            //on ground
             if (gamepad2.right_bumper){
-                Wrist.setPosition(.65);
+                Wrist.setPosition(0);
+                //.65
             }
             // backwards scoring
             if (gamepad2.left_bumper){
-                Wrist.setPosition(.75);
+                Wrist.setPosition(.1);
+                //.75
             }
 
             /**SERVO NUMBERS NEED TO BE OPPOSITE**/
@@ -163,10 +165,9 @@ public class ZOOM extends LinearOpMode {
             if (gamepad2.left_trigger > 0.1) {
                 ClawL.setPosition(.5);
             }
-            if (gamepad2.right_trigger > 0.1){
+            else if (gamepad2.right_trigger > 0.1){
                 ClawR.setPosition(0);
             }
-
             else{
                 ClawL.setPosition(0);
                 ClawR.setPosition(.5);
