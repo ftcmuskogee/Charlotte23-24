@@ -130,7 +130,7 @@ public class RedFront extends LinearOpMode
 
         switch (snapshotAnalysis)
         {
-            case LEFT:
+            case RIGHT:
             {
                 telemetry.addLine("left");
                 //close
@@ -153,7 +153,7 @@ public class RedFront extends LinearOpMode
                 break;
             }
 
-            case RIGHT:
+            case LEFT:
             {
                 telemetry.addLine("right");
                 //close
