@@ -84,7 +84,7 @@ public class RedBack extends LinearOpMode
         Webmap robot = new Webmap();
         robot.init(hardwareMap);
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d startPose = new Pose2d(35, 60, Math.toRadians(270));
+        Pose2d startPose = new Pose2d(35, -60, Math.toRadians(90));
         drive.setPoseEstimate(startPose);
 /**MID**/
         //middle forward
@@ -101,36 +101,36 @@ public class RedBack extends LinearOpMode
                 .lineToConstantHeading(new Vector2d(75, -40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
-        /**RIGHT**/
+        /**left**/
         //right forward, strafe
         TrajectorySequence Canada = drive.trajectorySequenceBuilder(startPose)
-                .lineToConstantHeading(new Vector2d(35, -32), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(35, -34), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(25, -32), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(23, -34), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
         //little back, strafe
         TrajectorySequence Goose = drive.trajectorySequenceBuilder(Canada.end())
-                .lineToConstantHeading(new Vector2d(25, -34), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(23, -33), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .waitSeconds(1)
                 .lineToConstantHeading(new Vector2d(75, -34), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
-        /**left**/
+        /**right**/
         //left forward, strafe
         TrajectorySequence America = drive.trajectorySequenceBuilder(startPose)
-                .lineToConstantHeading(new Vector2d(35, -35), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(35, -32), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(50, -35), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(48, -32), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
         //little back, strafe
         TrajectorySequence Eagle = drive.trajectorySequenceBuilder(America.end())
                 .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(50, -40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(48, -40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .waitSeconds(1)
                 .lineToConstantHeading(new Vector2d(80, -40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
@@ -173,7 +173,7 @@ public class RedBack extends LinearOpMode
                 //open left claw
                 robot.CR(0);
                 //back alittle, strafe
-                //drive.followTrajectorySequence(Eagle);
+                drive.followTrajectorySequence(Eagle);
                 sleep(500);
                 //drop yelow
                 robot.CL(.5);
@@ -198,7 +198,7 @@ public class RedBack extends LinearOpMode
                 //open left claw
                 robot.CR(0);
                 //back alittle, strafe
-                //drive.followTrajectorySequence(Goose);
+                drive.followTrajectorySequence(Goose);
                 //drop yelow
                 robot.CL(.5);
                 break;

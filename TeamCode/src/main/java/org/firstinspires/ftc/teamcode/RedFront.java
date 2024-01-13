@@ -84,7 +84,7 @@ public class RedFront extends LinearOpMode
         Webmap robot = new Webmap();
         robot.init(hardwareMap);
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d startPose = new Pose2d(-35, 60, Math.toRadians(270));
+        Pose2d startPose = new Pose2d(-35, -60, Math.toRadians(90));
         drive.setPoseEstimate(startPose);
 /**MID**/
         //middle forward
