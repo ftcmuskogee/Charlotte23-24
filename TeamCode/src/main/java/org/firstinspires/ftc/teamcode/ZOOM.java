@@ -141,7 +141,7 @@ public class ZOOM extends LinearOpMode {
 
 
             // Makes variables Power1 and Power2 to their respective joystick
-            double Power1 = -gamepad2.right_stick_y;
+            double Power1 = gamepad2.right_stick_y;
             double Power2 = gamepad2.left_stick_y;
             speed = -.2;
             // sets the power for the lifts
@@ -163,7 +163,7 @@ public class ZOOM extends LinearOpMode {
             /**SERVO NUMBERS NEED TO BE OPPOSITE**/
 
             if (gamepad2.left_trigger > 0.1) {
-                ClawL.setPosition(.55);
+                ClawL.setPosition(.52);
             }
             else if (gamepad2.right_trigger > 0.1){
                 ClawR.setPosition(0);
