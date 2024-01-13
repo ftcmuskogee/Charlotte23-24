@@ -40,12 +40,12 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
  * and then snapshot that value for later use when the START
  * command is issued. The pipeline is re-used from SkystoneDeterminationExample
  */
-@Autonomous(name = "BLUE", group = "robot")
-public class BB extends LinearOpMode
+@Autonomous(name = "RED BACK", group = "robot")
+public class RedBack extends LinearOpMode
 {
     OpenCvWebcam webcam;
-    BluePipeline.WilburB pipeline;
-    BluePipeline.WilburB.SkystonePosition snapshotAnalysis = BluePipeline.WilburB.SkystonePosition.CENTER;
+    RedPipeline.WilburR pipeline;
+    RedPipeline.WilburR.SkystonePosition snapshotAnalysis = RedPipeline.WilburR.SkystonePosition.CENTER;
 
     @Override
     public void runOpMode()
@@ -53,7 +53,7 @@ public class BB extends LinearOpMode
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-        pipeline = new BluePipeline.WilburB();
+        pipeline = new RedPipeline.WilburR();
         webcam.setPipeline(pipeline);
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
@@ -89,51 +89,51 @@ public class BB extends LinearOpMode
 /**MID**/
         //middle forward
         TrajectorySequence Vietnam = drive.trajectorySequenceBuilder(startPose)
-                .lineToConstantHeading(new Vector2d(35, 29), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(35, -29), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
         //back,strafe
         TrajectorySequence Shrike = drive.trajectorySequenceBuilder(Vietnam.end())
                 .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(35, 40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(35, -40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(75, 40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(75, -40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
         /**RIGHT**/
         //right forward, strafe
         TrajectorySequence Canada = drive.trajectorySequenceBuilder(startPose)
-                .lineToConstantHeading(new Vector2d(35, 32), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(35, -32), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(25, 32), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(25, -32), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
         //little back, strafe
         TrajectorySequence Goose = drive.trajectorySequenceBuilder(Canada.end())
-                .lineToConstantHeading(new Vector2d(25, 34), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(25, -34), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(75, 34), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(75, -34), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
         /**left**/
         //left forward, strafe
         TrajectorySequence America = drive.trajectorySequenceBuilder(startPose)
-                .lineToConstantHeading(new Vector2d(35, 35), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(35, -35), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(50, 35), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(50, -35), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
         //little back, strafe
         TrajectorySequence Eagle = drive.trajectorySequenceBuilder(America.end())
                 .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(50, 40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(50, -40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(80, 40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(80, -40), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
 
@@ -155,7 +155,7 @@ public class BB extends LinearOpMode
 
         switch (snapshotAnalysis)
         {
-            case LEFT:
+            case RIGHT:
             {
                 telemetry.addLine("left");
                 //close
@@ -173,14 +173,14 @@ public class BB extends LinearOpMode
                 //open left claw
                 robot.CR(0);
                 //back alittle, strafe
-                drive.followTrajectorySequence(Eagle);
+                //drive.followTrajectorySequence(Eagle);
                 sleep(500);
                 //drop yelow
                 robot.CL(.5);
                 break;
             }
 
-            case RIGHT:
+            case LEFT:
             {
                 telemetry.addLine("right");
                 //close
@@ -198,7 +198,7 @@ public class BB extends LinearOpMode
                 //open left claw
                 robot.CR(0);
                 //back alittle, strafe
-                drive.followTrajectorySequence(Goose);
+                //drive.followTrajectorySequence(Goose);
                 //drop yelow
                 robot.CL(.5);
                 break;
@@ -226,7 +226,7 @@ public class BB extends LinearOpMode
                 //back up
                 //strafe left
                 //go forward
-                drive.followTrajectorySequence(Shrike);
+                //drive.followTrajectorySequence(Shrike);
                 //drop yellow
                 robot.CL(.5);
                 break;

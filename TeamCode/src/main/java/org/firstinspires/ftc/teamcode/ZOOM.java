@@ -101,7 +101,7 @@ public class ZOOM extends LinearOpMode {
                     new Pose2d(
                             -gamepad1.left_stick_y * 1,
                             -gamepad1.left_stick_x * 1,
-                            gamepad1.right_stick_x * 0.8
+                            -gamepad1.right_stick_x * 0.8
                     )
             );
 
@@ -163,7 +163,7 @@ public class ZOOM extends LinearOpMode {
             /**SERVO NUMBERS NEED TO BE OPPOSITE**/
 
             if (gamepad2.left_trigger > 0.1) {
-                ClawL.setPosition(.5);
+                ClawL.setPosition(.55);
             }
             else if (gamepad2.right_trigger > 0.1){
                 ClawR.setPosition(0);

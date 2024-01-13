@@ -81,6 +81,8 @@ public class Webmap {
         LinAct.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
+
+
     }
 
     // function for driving forward
@@ -179,13 +181,6 @@ public class Webmap {
         Armextend.setPower(0);
         ArmAngle.setPower(0);
     }
-
-    //close both sides of claw
-    public void C(double position) {
-        ClawR.setPosition(position);
-        ClawL.setPosition(position);
-    }
-
     //close right side claw
     public void CR(double position) {
         ClawR.setPosition(position);
@@ -232,7 +227,7 @@ public class Webmap {
     public void UP(double seconds) {
         double time = (seconds * 1000) + runtime.milliseconds();
         while (time > runtime.milliseconds()) {
-            ArmAngle.setPower(.2);
+            ArmAngle.setPower(.0001);
         }
     }
 
