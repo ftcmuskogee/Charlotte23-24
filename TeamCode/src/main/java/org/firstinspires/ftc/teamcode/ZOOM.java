@@ -142,11 +142,21 @@ public class ZOOM extends LinearOpMode {
 
             // Makes variables Power1 and Power2 to their respective joystick
             double Power1 = gamepad2.right_stick_y;
-            double Power2 = gamepad2.left_stick_y;
+            //double Power2 = gamepad2.left_stick_y;
             speed = -.2;
             // sets the power for the lifts
+
             Armextend.setPower(Power1 * speed);
-            ArmAngle.setPower(Power2 * speed);
+            //ArmAngle.setPower(Power2 * speed);
+
+            if (gamepad2.left_stick_y > .1)
+            {
+                ArmAngle.setTargetPosition(1);
+            }
+            else if (gamepad2.left_stick_y < .1)
+            {
+                ArmAngle.setTargetPosition(2);
+            }
 
 //5 turn so change
             //on ground

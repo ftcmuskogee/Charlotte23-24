@@ -79,9 +79,9 @@ public class Webmap {
         LinAct.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         LinAct.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LinAct.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-
-
+//close
+        ClawL.setPosition(0);
+        ClawR.setPosition(.5);
 
     }
 
