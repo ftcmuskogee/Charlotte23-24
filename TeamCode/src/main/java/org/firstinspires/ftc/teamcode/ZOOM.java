@@ -27,8 +27,7 @@ public class ZOOM extends LinearOpMode {
     public CRServo LinAngle = null;
     // arm angle
     public DcMotor ArmAngle = null;
-    public Servo ArmextendL = null;
-    public Servo ArmextendR = null;
+    public DcMotor Armextend = null;
 
     //plane launch
     public Servo Plane = null;
@@ -51,8 +50,7 @@ public class ZOOM extends LinearOpMode {
         LinAct = hardwareMap.get(DcMotor.class, "ACT");
         ClawL = hardwareMap.get(Servo.class, "CL");
         ClawR = hardwareMap.get(Servo.class, "CR");
-        ArmextendL = hardwareMap.get(Servo.class, "ARML");
-        ArmextendR = hardwareMap.get(Servo.class, "ARMR");
+        Armextend = hardwareMap.get(DcMotor.class, "ARM");
         Wrist = hardwareMap.get(Servo.class, "W");
         LinAngle = hardwareMap.get(CRServo.class, "LA");
         ArmAngle = hardwareMap.get(DcMotor.class, "AA");
@@ -68,6 +66,10 @@ public class ZOOM extends LinearOpMode {
         Backright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Frontleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Backleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        Armextend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Armextend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Armextend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         ArmAngle.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ArmAngle.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -136,27 +138,25 @@ public class ZOOM extends LinearOpMode {
 
 
             //arm controller
-/** need adjusts ments**/
-            if (gamepad2.left_stick_y > .2)
+
+
+            // Makes variables Power1 and Power2 to their respective joystick
+            double Power1 = gamepad2.right_stick_y;
+            //double Power2 = gamepad2.left_stick_y;
+            speed = -.2;
+            // sets the power for the lifts
+
+            Armextend.setPower(Power1 * speed);
+            //ArmAngle.setPower(Power2 * speed);
+
+            if (gamepad2.left_stick_y > .1)
             {
                 ArmAngle.setTargetPosition(1);
             }
-            else if (gamepad2.left_stick_y < -0.2)
+            else if (gamepad2.left_stick_y < .1)
             {
                 ArmAngle.setTargetPosition(2);
             }
-
-            if (gamepad2.right_stick_y > .2){
-                ArmextendL.setPosition(0);
-                ArmextendR.setPosition(0);
-            }
-
-            else if (gamepad2.right_stick_y < -0.2)
-            {
-                ArmextendL.setPosition(.2);
-                ArmextendR.setPosition(.2);
-            }
-
 
 //5 turn so change
             //on ground

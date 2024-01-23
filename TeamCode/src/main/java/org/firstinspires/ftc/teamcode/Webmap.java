@@ -28,8 +28,7 @@ public class Webmap {
     public CRServo LinAngle = null;
     // arm angle
     public DcMotor ArmAngle = null;
-    public Servo ArmextendL = null;
-    public Servo ArmextendR = null;
+    public DcMotor Armextend = null;
 
     //plane launch
     public Servo Plane = null;
@@ -51,8 +50,7 @@ public class Webmap {
         LinAct = hmap.get(DcMotor.class, "ACT ");
         ClawL = hmap.get(Servo.class, "CL");
         ClawR = hmap.get(Servo.class, "CR");
-        ArmextendL = hmap.get(Servo.class, "ARML");
-        ArmextendR = hmap.get(Servo.class, "ARMR");
+        Armextend = hmap.get(DcMotor.class, "ARM");
         Wrist = hmap.get(Servo.class, "W");
         LinAngle = hmap.get(CRServo.class, "LA");
         ArmAngle = hmap.get(DcMotor.class, "AA");
@@ -69,6 +67,10 @@ public class Webmap {
         Backright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Frontleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Backleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        Armextend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Armextend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Armextend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         ArmAngle.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ArmAngle.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -176,6 +178,7 @@ public class Webmap {
     }
 
     public void Aoff() {
+        Armextend.setPower(0);
         ArmAngle.setPower(0);
     }
     //close right side claw
@@ -204,11 +207,10 @@ public class Webmap {
 
     //function for moving arm 1 into bot
     //runs arm 1 motor in at 100% power
-
-    /** figure out set positions for armextend**/
     public void IN(double seconds) {
         double time = (seconds * 1000) + runtime.milliseconds();
         while (time > runtime.milliseconds()) {
+            Armextend.setPower(.2);
         }
 
     }
@@ -218,7 +220,7 @@ public class Webmap {
     public void OUT(double seconds) {
         double time = (seconds * 1000) + runtime.milliseconds();
         while (time > runtime.milliseconds()) {
-
+            Armextend.setPower(.2);
         }
     }
 
