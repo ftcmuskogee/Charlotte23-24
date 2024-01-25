@@ -141,8 +141,6 @@ public class ZOOM extends LinearOpMode {
 
 
             // left joystick controls arm angle
-            // activated motor but try larger postition
-            //check discord for video. run to position requires a lot more set up above
             if (gamepad2.left_stick_y > .2)
             {
                 ArmAngle.setTargetPosition(1);
@@ -155,7 +153,7 @@ public class ZOOM extends LinearOpMode {
             //right joystick controls armextension
             if (gamepad2.right_stick_y > .1)
             {
-                Armextend.setTargetPosition(1000);
+                Armextend.setTargetPosition(1);
             }
             else if (gamepad2.right_stick_y < -0.2)
             {

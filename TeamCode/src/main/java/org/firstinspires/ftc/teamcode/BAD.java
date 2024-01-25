@@ -158,8 +158,7 @@ public class BAD extends LinearOpMode {
                     }
                 }
 
-            }
-            else {
+            } else {
                // telemetry.addLine("Don't see tag of interest :(");
 
                 if (tagOfInterest == null) {
@@ -243,29 +242,29 @@ public class BAD extends LinearOpMode {
                 if (tagOfInterest.pose.x <= 20) {
                     robot.Forward(1);
                 }
+                /*
                 else if (tagOfInterest.pose.x >= 20 && tagOfInterest.pose.x <= 50) {
                     // do something else
                 }
                 else if (tagOfInterest.pose.x >= 50) {
                     // do something else
                 }
-                */
                 break;
-
+                */
 
             }
 
             case RIGHT: {
                 telemetry.addLine("right");
-                break;
+
             }
 
             case CENTER: {
 
                 telemetry.addLine("mid");
                 //close claws
-                //robot.CL(0);
-                //robot.CR(.5);
+                robot.CL(0);
+                robot.CR(.5);
                 //wrist down
                 //forward
                 //open left claw
@@ -273,7 +272,6 @@ public class BAD extends LinearOpMode {
                 //strafe left
                 //go forward drop yellow
                 //yay
-                break;
 
             }
         }

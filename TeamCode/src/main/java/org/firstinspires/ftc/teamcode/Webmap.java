@@ -80,7 +80,6 @@ public class Webmap {
         LinAct.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LinAct.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 //close
-        // move to while (isstop requested) in autos? did not initialize when supposed to
         ClawL.setPosition(0);
         ClawR.setPosition(.5);
 
