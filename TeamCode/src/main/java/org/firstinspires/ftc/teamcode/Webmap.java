@@ -27,16 +27,8 @@ public class Webmap {
     //may need changing
     public CRServo LinAngle = null;
     // arm angle
-    public DcMotor ArmAngle;
-    public double ArmAngleZeroPower = 0.0;
-    public double ArmAnglePower = 1.0;
-    public int ArmAnglePositionOne = 0;
-    public int ArmAnglePositionTwo = 1000;
+    public DcMotor ArmAngle = null;
     public DcMotor Armextend = null;
-    public double ArmextendZeroPower = 0.0;
-    public double ArmextendPower = 1.0;
-    public int ArmextendPositionOne = 0;
-    public int ArmextendPositionTwo = 1000;
 
     //plane launch
     public Servo Plane = null;

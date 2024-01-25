@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -14,12 +13,6 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 public class ZOOM extends LinearOpMode {
     // names motors and sets motors to type null
-    public DcMotor ArmAngle;
-    public double ArmAngleZeroPower = 0.0;
-    public double ArmAnglePower = 0.6;
-    public int ArmAnglePositionOne = 0;
-    public int ArmAnglePositionTwo = 20;
-
     public DcMotor Frontright = null;
     public DcMotor Backright = null;
     public DcMotor Backleft = null;
@@ -33,11 +26,8 @@ public class ZOOM extends LinearOpMode {
     //may need changing
     public CRServo LinAngle = null;
     // arm angle
-   // public DcMotor ArmAngle = null;
+    public DcMotor ArmAngle = null;
     public DcMotor Armextend = null;
-    public double ArmextendPower = 0.5;
-    public int ArmextendPositionOne = 0;
-    public int ArmextendPositionTwo = 1;
 
     //plane launch
     public Servo Plane = null;
@@ -47,19 +37,6 @@ public class ZOOM extends LinearOpMode {
 
     //calls hardware map
     Webmap robot = new Webmap();
-
-    public void runArmAngleToPosition(int position) {
-        ArmAngle.setTargetPosition(position);
-        ArmAngle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        ArmAngle.setPower(ArmAnglePower);
-    }
-    public void runArmextendToPosition(int position) {
-        Armextend.setTargetPosition(position);
-        Armextend.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Armextend.setPower(ArmextendPower);
-    }
-
-
 
     @Override
     public void runOpMode() {
@@ -73,19 +50,10 @@ public class ZOOM extends LinearOpMode {
         LinAct = hardwareMap.get(DcMotor.class, "ACT");
         ClawL = hardwareMap.get(Servo.class, "CL");
         ClawR = hardwareMap.get(Servo.class, "CR");
-        Armextend = hardwareMap.get(DcMotor.class, "ARM"); {
-            Armextend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            Armextend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            Armextend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            Armextend.setPower(ArmAngleZeroPower); }
+        Armextend = hardwareMap.get(DcMotor.class, "ARM");
         Wrist = hardwareMap.get(Servo.class, "W");
         LinAngle = hardwareMap.get(CRServo.class, "LA");
-
-        ArmAngle = hardwareMap.get(DcMotor.class, "AA"); {
-            ArmAngle.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            ArmAngle.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            ArmAngle.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            ArmAngle.setPower(ArmAngleZeroPower); }
+        ArmAngle = hardwareMap.get(DcMotor.class, "AA");
         /**Plane = hardwareMap.get(Servo.class, "P");
          PlaneSecure = hardwareMap.get(Servo.class, "PS");
          */
@@ -102,6 +70,10 @@ public class ZOOM extends LinearOpMode {
         Armextend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         Armextend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Armextend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        ArmAngle.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ArmAngle.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        ArmAngle.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         LinAct.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         LinAct.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -171,28 +143,24 @@ public class ZOOM extends LinearOpMode {
             // left joystick controls arm angle
             // activated motor but try larger postition
             //check discord for video. run to position requires a lot more set up above
-            if (gamepad2.left_stick_y > .3)
+            if (gamepad2.left_stick_y > .2)
             {
-                runArmAngleToPosition(ArmAnglePositionTwo);
+                ArmAngle.setTargetPosition(1);
             }
-            else if (gamepad2.left_stick_y < -0.3)
+            else if (gamepad2.left_stick_y < -0.2)
             {
-                runArmAngleToPosition(ArmAnglePositionOne);
+                ArmAngle.setTargetPosition(2);
             }
 
             //right joystick controls armextension
-            if (gamepad2.right_stick_y > .3)
+            if (gamepad2.right_stick_y > .1)
             {
-                runArmextendToPosition(ArmextendPositionTwo);
-                Armextend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                Armextend.setTargetPosition(1000);
             }
-            else if (gamepad2.right_stick_y < -0.3)
+            else if (gamepad2.right_stick_y < -0.2)
             {
-                runArmAngleToPosition(ArmextendPositionOne);
-                Armextend.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                Armextend.setTargetPosition(2);
             }
-            else {Armextend.setPower(0);}
-
 
 
 
@@ -220,7 +188,6 @@ public class ZOOM extends LinearOpMode {
                 ClawL.setPosition(0);
                 ClawR.setPosition(.5);
             }
-
 /**
             if (gamepad2.a) {
                 Plane.setPosition(0);
