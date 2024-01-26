@@ -111,7 +111,7 @@ public class RedPipeline extends LinearOpMode
         double rightavgfin;
         double midavgfin;
         Mat outPut = new Mat();
-        Scalar rectColor = new Scalar(255.0,0.0,0.0);
+        Scalar rectColor = new Scalar(163.0,21.0,37.0);
 
         // Volatile since accessed by OpMode thread w/o synchronization
         private volatile SkystonePosition position = SkystonePosition.CENTER;
