@@ -55,7 +55,6 @@ public class Webmap {
         LinAngle = hmap.get(CRServo.class, "LA");
         ArmAngle = hmap.get(DcMotor.class, "AA");
         Plane = hmap.get(Servo.class, "P");
-        PlaneSecure = hmap.get(Servo.class, "PS");
 
 
         Frontleft.setDirection(DcMotor.Direction.REVERSE);

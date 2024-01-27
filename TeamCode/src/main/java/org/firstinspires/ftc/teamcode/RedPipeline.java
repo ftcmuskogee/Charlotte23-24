@@ -26,6 +26,7 @@ import android.graphics.ColorSpace;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
@@ -55,7 +56,7 @@ public class RedPipeline extends LinearOpMode
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         Cam = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
-        pipeline = new WilburR();
+        pipeline = new WilburR(telemetry);
         Cam.setPipeline(pipeline);
 
         // We set the viewport policy to optimized view so the preview doesn't appear 90 deg
@@ -118,6 +119,12 @@ public class RedPipeline extends LinearOpMode
         // Volatile since accessed by OpMode thread w/o synchronization
         private volatile SkystonePosition position = SkystonePosition.CENTER;
 
+        Telemetry telemetry;
+
+        public WilburR(Telemetry telemetry) {
+            this.telemetry = telemetry;
+        }
+
         @Override
         public Mat processFrame(Mat input)
         {
@@ -138,13 +145,17 @@ public class RedPipeline extends LinearOpMode
             midcrop = rgb.submat(midRect);
             rightcrop = rgb.submat(rightRect);
 
-            Core.extractChannel(leftcrop,leftcrop,1);
-            Core.extractChannel(rightcrop,rightcrop,1);
-            Core.extractChannel(midcrop,midcrop,1);
+            Core.extractChannel(leftcrop,leftcrop,0);
+            Core.extractChannel(rightcrop,rightcrop,0);
+            Core.extractChannel(midcrop,midcrop,0);
 
             Scalar leftavg = Core.mean(leftcrop);
             Scalar rightavg = Core.mean(rightcrop);
             Scalar midavg = Core.mean(midcrop);
+
+            telemetry.addData("LEFT: ", leftavg);
+            telemetry.addData("RIGHT: ", rightavg);
+            telemetry.addData("CENTER: ", midavg);
 
             leftavgfin = leftavg.val[0];
             rightavgfin = rightavg.val[0];
@@ -168,7 +179,7 @@ public class RedPipeline extends LinearOpMode
              * simply rendering the raw camera feed, because we called functions
              * to add some annotations to this buffer earlier up.
              */
-            return input;
+            return outPut;
         }
 
         /*

@@ -173,7 +173,7 @@ public class BluePipeline extends LinearOpMode
              * simply rendering the raw camera feed, because we called functions
              * to add some annotations to this buffer earlier up.
              */
-            return input;
+            return YCbCr;
         }
 
         /*
