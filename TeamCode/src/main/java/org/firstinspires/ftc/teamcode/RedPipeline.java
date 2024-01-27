@@ -21,14 +21,12 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import android.graphics.ColorSpace;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
+import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
@@ -38,10 +36,15 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
 import org.openftc.easyopencv.OpenCvPipeline;
 
+/*
+ * This sample demonstrates a basic (but battle-tested and essentially
+ * 100% accurate) method of detecting the skystone when lined up with
+ * the sample regions over the first 3 stones.
+ */
 @TeleOp
 public class RedPipeline extends LinearOpMode
 {
-    OpenCvInternalCamera Cam;
+    OpenCvInternalCamera phoneCam;
     WilburR pipeline;
 
     @Override
@@ -55,21 +58,21 @@ public class RedPipeline extends LinearOpMode
          */
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        Cam = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
-        pipeline = new WilburR(telemetry);
-        Cam.setPipeline(pipeline);
+        phoneCam = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
+        pipeline = new WilburR();
+        phoneCam.setPipeline(pipeline);
 
         // We set the viewport policy to optimized view so the preview doesn't appear 90 deg
         // out when the RC activity is in portrait. We do our actual image processing assuming
         // landscape orientation, though.
-        Cam.setViewportRenderingPolicy(OpenCvCamera.ViewportRenderingPolicy.OPTIMIZE_VIEW);
+        phoneCam.setViewportRenderingPolicy(OpenCvCamera.ViewportRenderingPolicy.OPTIMIZE_VIEW);
 
-        Cam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
+        phoneCam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
         {
             @Override
             public void onOpened()
             {
-                Cam.startStreaming(640,360, OpenCvCameraRotation.UPRIGHT);
+                phoneCam.startStreaming(640,360, OpenCvCameraRotation.UPRIGHT);
                 //320,240
                 //was SIDEWAYS_LEFT
             }
@@ -106,7 +109,7 @@ public class RedPipeline extends LinearOpMode
             CENTER,
             RIGHT
         }
-        Mat rgb = new Mat();
+        Mat YCbCr = new Mat();
         Mat leftcrop;
         Mat rightcrop;
         Mat midcrop;
@@ -114,48 +117,36 @@ public class RedPipeline extends LinearOpMode
         double rightavgfin;
         double midavgfin;
         Mat outPut = new Mat();
-        Scalar rectColor = new Scalar(128.0,0.0,0.0);
+        Scalar rectColor = new Scalar(0.0,0.0,139.0);
 
         // Volatile since accessed by OpMode thread w/o synchronization
         private volatile SkystonePosition position = SkystonePosition.CENTER;
-
-        Telemetry telemetry;
-
-        public WilburR(Telemetry telemetry) {
-            this.telemetry = telemetry;
-        }
 
         @Override
         public Mat processFrame(Mat input)
         {
 
-           // Imgproc.cvtColor(input,YCbCr,Imgproc.COLOR_BayerRG2BGRA);
-            Imgproc.cvtColor(input,rgb,Imgproc.COLOR_BGR2RGB);
-            //Imgproc.cvtColor(input, ColorSpace.Rgb,Imgproc.COLOR_BayerRG2BGR );
+            Imgproc.cvtColor(input,YCbCr,Imgproc.COLOR_RGB2YCrCb);
 
-            Rect leftRect = new Rect(1,1,158,200);
+            Rect leftRect = new Rect(1,1,158,359);
             Rect midRect = new Rect(160,1,318,359);
-            Rect rightRect = new Rect(480,1,158,200);
+            Rect rightRect = new Rect(480,1,158,359);
             input.copyTo(outPut);
             Imgproc.rectangle(outPut,leftRect,rectColor,2);
             Imgproc.rectangle(outPut,midRect,rectColor,2);
             Imgproc.rectangle(outPut,rightRect,rectColor,2);
 
-            leftcrop = rgb.submat(leftRect);
-            midcrop = rgb.submat(midRect);
-            rightcrop = rgb.submat(rightRect);
+            leftcrop = YCbCr.submat(leftRect);
+            midcrop = YCbCr.submat(midRect);
+            rightcrop = YCbCr.submat(rightRect);
 
-            Core.extractChannel(leftcrop,leftcrop,0);
-            Core.extractChannel(rightcrop,rightcrop,0);
-            Core.extractChannel(midcrop,midcrop,0);
+            Core.extractChannel(leftcrop,leftcrop,1);
+            Core.extractChannel(rightcrop,rightcrop,1);
+            Core.extractChannel(midcrop,midcrop,1);
 
             Scalar leftavg = Core.mean(leftcrop);
             Scalar rightavg = Core.mean(rightcrop);
             Scalar midavg = Core.mean(midcrop);
-
-            telemetry.addData("LEFT: ", leftavg);
-            telemetry.addData("RIGHT: ", rightavg);
-            telemetry.addData("CENTER: ", midavg);
 
             leftavgfin = leftavg.val[0];
             rightavgfin = rightavg.val[0];
@@ -164,14 +155,17 @@ public class RedPipeline extends LinearOpMode
             if((leftavgfin > rightavgfin) && (leftavgfin > midavgfin)) // Was it from region 1?
             {
                 position = SkystonePosition.LEFT; // Record our analysis
+
             }
             else if((midavgfin > rightavgfin) && (midavgfin > leftavgfin)) // Was it from region 2?
             {
                 position = SkystonePosition.CENTER; // Record our analysis
+
             }
-            else if((rightavgfin > leftavgfin ) && (rightavgfin > midavgfin)) // Was it from region 3?
+            else if((rightavgfin > leftavgfin ) && (rightavgfin > midavgfin) && (rightavgfin < 130)) // Was it from region 3?
             {
                 position = SkystonePosition.RIGHT; // Record our analysis
+
             }
 
             /*
@@ -179,7 +173,7 @@ public class RedPipeline extends LinearOpMode
              * simply rendering the raw camera feed, because we called functions
              * to add some annotations to this buffer earlier up.
              */
-            return outPut;
+            return YCbCr;
         }
 
         /*

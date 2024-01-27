@@ -112,10 +112,10 @@ public class BB extends LinearOpMode
                 .build();
         //little back, strafe
         TrajectorySequence Goose = drive.trajectorySequenceBuilder(Canada.end())
-                .lineToConstantHeading(new Vector2d(25, 36), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(25, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(65, 36), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(65, 37), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
         /**left**/

@@ -53,7 +53,7 @@ public class RedBack extends LinearOpMode
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-        pipeline = new RedPipeline.WilburR(telemetry);
+        pipeline = new RedPipeline.WilburR();
         webcam.setPipeline(pipeline);
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
@@ -72,6 +72,8 @@ public class RedBack extends LinearOpMode
          * The INIT-loop:
          * This REPLACES waitForStart!
          */
+        Webmap robot = new Webmap();
+        robot.init(hardwareMap);
         while (!isStarted() && !isStopRequested())
         {
             telemetry.addData("Realtime analysis", pipeline.getAnalysis());
@@ -81,15 +83,14 @@ public class RedBack extends LinearOpMode
             sleep(50);
 
         }
-        Webmap robot = new Webmap();
-        robot.init(hardwareMap);
+
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         Pose2d startPose = new Pose2d(35, -60, Math.toRadians(90));
         drive.setPoseEstimate(startPose);
 /**MID**/
         //middle forward
         TrajectorySequence Vietnam = drive.trajectorySequenceBuilder(startPose)
-                .lineToConstantHeading(new Vector2d(35, -34), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(35, -35), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
         //back,strafe

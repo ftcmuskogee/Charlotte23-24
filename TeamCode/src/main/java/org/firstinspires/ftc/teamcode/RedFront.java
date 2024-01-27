@@ -53,7 +53,7 @@ public class RedFront extends LinearOpMode
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-        pipeline = new RedPipeline.WilburR(telemetry);
+        pipeline = new RedPipeline.WilburR();
         webcam.setPipeline(pipeline);
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
@@ -89,7 +89,7 @@ public class RedFront extends LinearOpMode
 /**MID**/
         //middle forward
         TrajectorySequence Vietnam = drive.trajectorySequenceBuilder(startPose)
-                .lineToConstantHeading(new Vector2d(-35, -34), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
+                .lineToConstantHeading(new Vector2d(-35, -35), SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(360), 14.75),
                         SampleMecanumDrive.getAccelerationConstraint(70))
                 .build();
         /**right**/

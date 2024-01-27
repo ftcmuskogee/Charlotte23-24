@@ -56,6 +56,8 @@ public class Webmap {
         ArmAngle = hmap.get(DcMotor.class, "AA");
         Plane = hmap.get(Servo.class, "P");
 
+        ClawL.setPosition(0);
+        ClawR.setPosition(0.5);
 
         Frontleft.setDirection(DcMotor.Direction.REVERSE);
         Backleft.setDirection(DcMotor.Direction.REVERSE);
@@ -79,8 +81,7 @@ public class Webmap {
         LinAct.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LinAct.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 //close
-        ClawL.setPosition(0);
-        ClawR.setPosition(.5);
+
 
     }
 

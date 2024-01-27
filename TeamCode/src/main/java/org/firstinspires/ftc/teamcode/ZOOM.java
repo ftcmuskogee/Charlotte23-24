@@ -78,6 +78,7 @@ public class ZOOM extends LinearOpMode {
         LinAct.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         LinAct.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LinAct.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        
 
         //calls from samplemecanumdrive
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
