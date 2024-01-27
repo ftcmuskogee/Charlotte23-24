@@ -77,7 +77,7 @@ public class BAD extends LinearOpMode {
         webcam.setPipeline(pipeline);
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 2"), cameraMonitorViewId);
         aprilTagPipeline = new ApriltagPipeline(tagsize, fx, fy, cx, cy);
-        //camera.setPipeline(aprilTagPipeline);
+        camera.setPipeline(aprilTagPipeline);
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {

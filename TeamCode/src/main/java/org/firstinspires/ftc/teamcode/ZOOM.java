@@ -41,6 +41,7 @@ public class ZOOM extends LinearOpMode {
     @Override
     public void runOpMode() {
         double speed;
+        double extend;
 
         //sets up names for configuration
         Frontright = hardwareMap.get(DcMotor.class, "RF");
@@ -54,9 +55,9 @@ public class ZOOM extends LinearOpMode {
         Wrist = hardwareMap.get(Servo.class, "W");
         LinAngle = hardwareMap.get(CRServo.class, "LA");
         ArmAngle = hardwareMap.get(DcMotor.class, "AA");
-        /**Plane = hardwareMap.get(Servo.class, "P");
-         PlaneSecure = hardwareMap.get(Servo.class, "PS");
-         */
+        Plane = hardwareMap.get(Servo.class, "P");
+        PlaneSecure = hardwareMap.get(Servo.class, "PS");
+
 
         // sets the right 2 motors to reverse
         Frontleft.setDirection(DcMotor.Direction.REVERSE);
@@ -122,15 +123,11 @@ public class ZOOM extends LinearOpMode {
 //turn servo not positiion
             if (gamepad1.y) {
                 LinAngle.setPower(-10);
-                sleep(2000);
-                LinAngle.setPower(0);
             }
-            if (gamepad1.x) {
+            
+            else if (gamepad1.x) {
                 LinAngle.setPower(10);
-                sleep(2000);
-                LinAngle.setPower(0);
             }
-
             else
             {
                 LinAngle.setPower(0);
@@ -144,9 +141,10 @@ public class ZOOM extends LinearOpMode {
             double Power1 = gamepad2.right_stick_y;
             double Power2 = gamepad2.left_stick_y;
             speed = -.1;
+            extend = -.2;
             // sets the power for the lifts
 
-            Armextend.setPower(Power1 * speed);
+            Armextend.setPower(Power1 * extend);
             ArmAngle.setPower(Power2 * speed);
 
 
@@ -174,14 +172,15 @@ public class ZOOM extends LinearOpMode {
                 ClawL.setPosition(0);
                 ClawR.setPosition(.5);
             }
-/**
-            if (gamepad2.a) {
+            if (gamepad2.x) {
                 Plane.setPosition(0);
             }
- if (gamepad2.b) {
- PlaneSecure.setPosition(0);
- }
-*/
+
+            if (gamepad2.y) {
+                PlaneSecure.setPosition(0);
+            }
+
+
             //adds data to the driver hub that tells you the coordinates of where the robot is on the field
             Pose2d poseEstimate = drive.getPoseEstimate();
             telemetry.addData("a", poseEstimate.getX());

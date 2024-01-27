@@ -21,6 +21,8 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import android.graphics.ColorSpace;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -103,7 +105,7 @@ public class RedPipeline extends LinearOpMode
             CENTER,
             RIGHT
         }
-        Mat YCbCr = new Mat();
+        Mat rgb = new Mat();
         Mat leftcrop;
         Mat rightcrop;
         Mat midcrop;
@@ -111,7 +113,7 @@ public class RedPipeline extends LinearOpMode
         double rightavgfin;
         double midavgfin;
         Mat outPut = new Mat();
-        Scalar rectColor = new Scalar(163.0,21.0,37.0);
+        Scalar rectColor = new Scalar(128.0,0.0,0.0);
 
         // Volatile since accessed by OpMode thread w/o synchronization
         private volatile SkystonePosition position = SkystonePosition.CENTER;
@@ -120,19 +122,21 @@ public class RedPipeline extends LinearOpMode
         public Mat processFrame(Mat input)
         {
 
-            Imgproc.cvtColor(input,YCbCr,Imgproc.COLOR_RGB2YCrCb);
+           // Imgproc.cvtColor(input,YCbCr,Imgproc.COLOR_BayerRG2BGRA);
+            Imgproc.cvtColor(input,rgb,Imgproc.COLOR_BGR2RGB);
+            //Imgproc.cvtColor(input, ColorSpace.Rgb,Imgproc.COLOR_BayerRG2BGR );
 
-            Rect leftRect = new Rect(1,1,158,359);
+            Rect leftRect = new Rect(1,1,158,200);
             Rect midRect = new Rect(160,1,318,359);
-            Rect rightRect = new Rect(480,1,158,359);
+            Rect rightRect = new Rect(480,1,158,200);
             input.copyTo(outPut);
             Imgproc.rectangle(outPut,leftRect,rectColor,2);
             Imgproc.rectangle(outPut,midRect,rectColor,2);
             Imgproc.rectangle(outPut,rightRect,rectColor,2);
 
-            leftcrop = YCbCr.submat(leftRect);
-            midcrop = YCbCr.submat(midRect);
-            rightcrop = YCbCr.submat(rightRect);
+            leftcrop = rgb.submat(leftRect);
+            midcrop = rgb.submat(midRect);
+            rightcrop = rgb.submat(rightRect);
 
             Core.extractChannel(leftcrop,leftcrop,1);
             Core.extractChannel(rightcrop,rightcrop,1);
@@ -149,17 +153,14 @@ public class RedPipeline extends LinearOpMode
             if((leftavgfin > rightavgfin) && (leftavgfin > midavgfin)) // Was it from region 1?
             {
                 position = SkystonePosition.LEFT; // Record our analysis
-
             }
             else if((midavgfin > rightavgfin) && (midavgfin > leftavgfin)) // Was it from region 2?
             {
                 position = SkystonePosition.CENTER; // Record our analysis
-
             }
             else if((rightavgfin > leftavgfin ) && (rightavgfin > midavgfin)) // Was it from region 3?
             {
                 position = SkystonePosition.RIGHT; // Record our analysis
-
             }
 
             /*

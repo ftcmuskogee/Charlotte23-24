@@ -40,12 +40,12 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
  * and then snapshot that value for later use when the START
  * command is issued. The pipeline is re-used from SkystoneDeterminationExample
  */
-@Autonomous(name = "RED F", group = "robot")
+@Autonomous(name = "RED F", group = "Autonomous Main")
 public class RedFront extends LinearOpMode
 {
     OpenCvWebcam webcam;
-    BluePipeline.WilburB pipeline;
-    BluePipeline.WilburB.SkystonePosition snapshotAnalysis = BluePipeline.WilburB.SkystonePosition.CENTER;
+    RedPipeline.WilburR pipeline;
+    RedPipeline.WilburR.SkystonePosition snapshotAnalysis = RedPipeline.WilburR.SkystonePosition.CENTER;
 
     @Override
     public void runOpMode()
@@ -53,7 +53,7 @@ public class RedFront extends LinearOpMode
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-        pipeline = new BluePipeline.WilburB();
+        pipeline = new RedPipeline.WilburR();
         webcam.setPipeline(pipeline);
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()

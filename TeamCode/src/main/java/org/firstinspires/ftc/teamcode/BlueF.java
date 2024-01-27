@@ -40,7 +40,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
  * and then snapshot that value for later use when the START
  * command is issued. The pipeline is re-used from SkystoneDeterminationExample
  */
-@Autonomous(name = "BLUE FRONT", group = "robot")
+@Autonomous(name = "BLUE FRONT", group = "Autonomous main")
 public class BlueF extends LinearOpMode
 {
     OpenCvWebcam webcam;
