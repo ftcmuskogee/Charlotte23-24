@@ -72,6 +72,8 @@ public class BlueF extends LinearOpMode
          * The INIT-loop:
          * This REPLACES waitForStart!
          */
+        Webmap robot = new Webmap();
+        robot.init(hardwareMap);
         while (!isStarted() && !isStopRequested())
         {
             telemetry.addData("Realtime analysis", pipeline.getAnalysis());
@@ -81,8 +83,7 @@ public class BlueF extends LinearOpMode
             sleep(50);
 
         }
-        Webmap robot = new Webmap();
-        robot.init(hardwareMap);
+
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         Pose2d startPose = new Pose2d(-35, 60, Math.toRadians(270));
         drive.setPoseEstimate(startPose);

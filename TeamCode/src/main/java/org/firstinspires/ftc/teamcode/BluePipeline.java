@@ -157,14 +157,15 @@ public class BluePipeline extends LinearOpMode
                 position = SkystonePosition.LEFT; // Record our analysis
 
             }
-            else if((midavgfin > rightavgfin) && (midavgfin > leftavgfin)) // Was it from region 2?
-            {
-                position = SkystonePosition.CENTER; // Record our analysis
-
-            }
+            
             else if((rightavgfin > leftavgfin ) && (rightavgfin > midavgfin) && (rightavgfin < 130)) // Was it from region 3?
             {
                 position = SkystonePosition.RIGHT; // Record our analysis
+
+            }
+            else // Was it from region 2?
+            {
+                position = SkystonePosition.CENTER; // Record our analysis
 
             }
 
